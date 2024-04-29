@@ -14,6 +14,7 @@
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('https://vuphanlevinci.github.io/pushy-test.github.io/service-worker.js')
                     .then(registration => {
+                        console.log("ssssss")
                         console.log('Service Worker registered with scope:', registration.scope);
                     })
                     .catch(error => {
