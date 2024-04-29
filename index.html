@@ -14,7 +14,7 @@
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('https://vuphanlevinci.github.io/pushy-test.github.io/service-worker.js')
                     .then(registration => {
-                        console.log("ssssss")
+                        console.log("bbbbb")
                         console.log('Service Worker registered with scope:', registration.scope);
                     })
                     .catch(error => {
@@ -30,7 +30,7 @@
     <script type="text/javascript">
         function onClick() {
             // Register device for push notifications
-            Pushy.register({ appId: 'f02436f45bc6c5c2112eed97434f554957a26697cbb3ba30b1d68a57c4b12218' }).then(function (deviceToken) {
+            Pushy.register({ appId: '66013ceb701636f531336cc7' }).then(function (deviceToken) {
                 // Print device token to console
                 alert('Pushy device token: ' + deviceToken);
 
