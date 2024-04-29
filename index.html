@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="manifest" href="./manifest.json" />
+</head>
+
+<body>
+    <script src="https://sdk.pushy.me/web/1.0.18/pushy-sdk.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.error('Service Worker registration failed:', error);
+                    });
+            });
+        } else {
+            console.log('Service Worker is not supported in this browser.');
+        }
+    </script>
+
+    <!--<script src="https://sdk.pushy.me/web/1.0.0/pushy-sdk.js"></script>-->
+    <script type="text/javascript">
+        function onClick() {
+            // Register device for push notifications
+            Pushy.register({ appId: 'f02436f45bc6c5c2112eed97434f554957a26697cbb3ba30b1d68a57c4b12218' }).then(function (deviceToken) {
+                // Print device token to console
+                alert('Pushy device token: ' + deviceToken);
+
+                // Optionally subscribe the device to a topic
+                Pushy.subscribe('news');
+
+                // Send the token to your backend server via an HTTP GET request
+                //fetch('https://your.api.hostname/register/device?token=' + deviceToken);
+
+                // Succeeded, optionally do something to alert the user
+            }).catch(function (err) {
+                // Notify user of failure
+                alert('Registration failed: ' + err.message);
+            });
+        }
+
+        // Handle push notifications (only when web page is open)
+        Pushy.setNotificationListener(function (data) {
+            // Print notification payload data
+            console.log('Received notification: ' + JSON.stringify(data));
+
+            // Attempt to extract the "message" property from the payload: {"message":"Hello World!"}
+            let message = data.message || 'Test notification';
+
+            // Display an alert with message sent from server
+            alert('Received notification: ' + message);
+        });
+    </script>
+    <h1>
+        <a href="#" onClick="onClick()">Register for Web Push</a>
+    </h1>
+</body>
+
+</html>
